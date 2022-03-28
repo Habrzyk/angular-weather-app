@@ -1,0 +1,29 @@
+<div class="flex my-5 lg:my-7 h-15">
+    <form [formGroup]="locationForm" class="flex w-full mr-3" (ngSubmit)="onSubmit()">
+        <input type="text"
+            class="text-lg lg:text-xl text-gray-50/90 placeholder:text-gray-50/90 w-full rounded-lg border-0 bg-neutral-50/10 focus:ring-0 focus:bg-neutral-50/20 h:transition ease-in duration-150 focus:h-15"
+            placeholder="Search for a city or airport" 
+            formControlName="locationName"
+            (input)="onSearchChange()"
+        >
+        <button type="submit" class="mx-2 rounded-full text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10 focus:ring-0 hover:bg-neutral-50/20 focus:bg-neutral-50/20 transition ease-in duration-150 p-2 px-3">
+            <svg class="h-6 w-6 lg:h-8 lg:w-8 text-gray-50/90"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <circle cx="10" cy="10" r="7" />  <line x1="21" y1="21" x2="15" y2="15" /></svg>
+            <!-- Search -->
+        </button>
+    </form>
+    <button *ngIf="isWeatherForecastWithLocationList" routerLink="/location-list" routerLinkActive="active" type="button" class="mx-1 rounded-full text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10 focus:ring-0 hover:bg-neutral-50/20 focus:bg-neutral-50/20 transition ease-in duration-150 p-2 whitespace-nowrap">
+        <svg class="h-6 w-6 lg:h-8 lg:w-8 text-gray-50/90"  fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/>
+          </svg>
+        <!-- Your locations -->
+    </button>
+    <button *ngIf="isNewWeatherForecastWithLocation" (click)="onAdd()" type="button" class="mx-1 rounded-full text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10 focus:ring-0 hover:bg-neutral-50/20 focus:bg-neutral-50/20 transition ease-in duration-150 p-2 whitespace-nowrap">
+        <svg class="h-6 w-6 lg:h-8 lg:w-8 text-gray-50/90"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round">  <circle cx="12" cy="12" r="10" />  <line x1="12" y1="8" x2="12" y2="16" />  <line x1="8" y1="12" x2="16" y2="12" /></svg>
+        <!-- Add location -->
+    </button>
+    <button (click)="onChangeThemeColor()" type="button" class="hidden sm:inline-flex mx-1 rounded-full text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10 focus:ring-0 hover:bg-neutral-50/20 focus:bg-neutral-50/20 transition ease-in duration-150 p-2 whitespace-nowrap">
+        <svg class="h-6 w-6 mt-2 lg:mt-1 lg:h-8 lg:w-8 text-gray-50/90"  width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">  <path stroke="none" d="M0 0h24v24H0z"/>  <path d="M19 3h-4a2 2 0 0 0 -2 2v12a4 4 0 0 0 8 0v-12a2 2 0 0 0 -2 -2" />  <path d="M13 7.35l-2 -2a2 2 0 0 0 -2.828 0l-2.828 2.828a2 2 0 0 0 0 2.828l 9 9" />  <path d="M7.3 13h-2.3a2 2 0 0 0 -2 2v4a2 2 0 0 0 2 2h12" />  <line x1="17" y1="17" x2="17" y2="17.01" /></svg>
+        <!-- Change color -->
+    </button>
+</div>
+<h3 *ngIf="errorMessage" class="text-2xl lg:text-3xl font-black text-center md:text-left text-gray-50/90 mb-20">{{errorMessage}}</h3>

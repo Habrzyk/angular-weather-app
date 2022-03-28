@@ -1,0 +1,8 @@
+<h2 class="text-2xl lg:text-3xl font-black text-center md:text-left text-gray-50/90 mt-10">Day's Forecast</h2>
+<div class="flex gap-3 lg:gap-5 py-3 lg:mt-2 snap-x overflow-x-auto">
+  <div
+    class="snap-start flex flex-col rounded-lg p-3 text-gray-50/90 bg-neutral-50/10"
+    *ngFor="let hourlyForecast of dayForecast | slice:0:12; index as hourIndex">
+    <app-day-forecast-card [hourIndex]="hourIndex" [hourlyForecast]="hourlyForecast"></app-day-forecast-card>
+  </div>
+</div>

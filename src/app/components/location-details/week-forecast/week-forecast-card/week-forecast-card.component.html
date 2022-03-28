@@ -1,0 +1,10 @@
+<div class="flex flex-col items-center">
+  <h4 class="font-semibold text-lg md:text-xl">{{ dailyIndex > 0 ? ((dailyForecast.dt* 1000) | date: 'EEE') : 'Today'}}</h4>
+  <img src="../../../assets/svg/{{dailyForecast.weather[0].icon}}.svg" alt=""
+    class="w-full h-10 xl:h-20">
+  <div class="flex flex-row">
+    <span class="text-lg md:text-xl">{{dailyForecast.temp.max | number:'1.0-0'}}&#176;</span>
+    <span class="text-gray-50/60 ml-1 text-lg md:text-xl">{{dailyForecast.temp.min | number:'1.0-0'}}&#176;</span>
+    <span *ngIf="dailyForecast.pop > 0" class="text-lg md:text-xl text-cyan-200">&nbsp;&nbsp;{{dailyForecast.pop * 100 | number:'1.0-0'}}%</span>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<div class="flex flex-col items-center">
+  <h4 class="font-semibold text-lg md:text-xl">{{ hourIndex > 0 ? ((hourlyForecast.dt* 1000) | date: 'H:mm') : 'Now'}}</h4>
+  <img src="../../../assets/svg/{{hourlyForecast.weather[0].icon}}.svg" alt=""
+    class="w-full h-10 xl:h-20">
+  <div class="flex flex-row">
+    <span class="text-lg md:text-xl">{{hourlyForecast.temp | number:'1.0-0'}}&#176;</span>
+    <span *ngIf="hourlyForecast.pop > 0" class="text-xl md:text-lg text-cyan-200">&nbsp;&nbsp;{{hourlyForecast.pop * 100 | number:'1.0-0'}}%</span>
+  </div>
+</div>

@@ -1,0 +1,66 @@
+<div class="flex flex-col items-center md:items-stretch mt-10">
+  <p class="text-2xl lg:text-3xl font-black text-gray-50/90">Detailed Forecast</p>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 lg:gap-5 lg:gap-10 mt-3 lg:mt-5 justify-items-stretch">
+
+      <div class="p-4 lg:p-5 rounded-lg text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10">
+        <span class="text-gray-50">UV Index</span>
+        <div class="flex items-center flex-row justify-around px-5">
+          <img src="../../../../assets/svg/uv-index-{{ weatherForecast.current.uvi < 12 ? (weatherForecast.current.uvi | number:'1.0-0') : 11 }}.svg" alt="" class="w-2/6">
+          <div class="flex flex-row space-x-2">
+            <span class="text-3xl lg:text-4xl font-semibold mt-8">{{weatherForecast.current.uvi | number:'1.0-0'}} <small>nm</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 lg:p-5 rounded-lg text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10">
+        <span class="text-gray-50/90">Wind Speed</span>
+        <div class="flex items-center flex-row justify-around px-5">
+          <img src="../../../../assets/svg/wind-beaufort-{{weatherForecast.current.wind_speed | number:'1.0-0'}}.svg" alt="" class="w-2/6">
+          <div class="flex flex-row space-x-2">
+            <span class="text-3xl lg:text-4xl font-semibold mt-8">{{weatherForecast.current.wind_speed | number:'1.0-0'}} <small>m/s</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 lg:p-5 rounded-lg text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10">
+        <span class="text-gray-50/90">Feels Like</span>
+        <div class="flex items-center flex-row justify-around px-5">
+          <img src="../../../../assets/svg/feeling.svg" alt="" class="py-5 w-1/5">
+          <div class="flex flex-row content-center justify-center">
+            <span class="text-4xl font-semibold">{{weatherForecast.current.feels_like | number:'1.0-0'}}</span>
+            <span class="text-gray-50/90 flex text-3xl">&#176;</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 lg:p-5 rounded-lg text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10">
+        <span class="text-gray-50/90">Humidity</span>
+        <div class="flex flex-row justify-around px-5">
+          <img src="../../../../assets/svg/humidity.svg" alt="" class="w-2/6">
+          <div class="flex flex-row space-x-2">
+            <span class="text-3xl lg:text-4xl font-semibold mt-8">{{weatherForecast.current.humidity | number:'1.0-0'}} <small>%</small></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="p-4 lg:p-5 rounded-lg text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10">
+        <span class="text-gray-50/90">Wind Direction</span>
+        <div class="flex flex-row justify-around px-5">
+          <img src="../../../../assets/svg/compass.svg" alt="" class="w-2/6">
+          <span class="text-3xl lg:text-4xl font-semibold mt-6">{{weatherForecast.current.wind_deg | number:'1.0-0'}}&#176;</span>
+        </div>
+      </div>
+
+      <div class="p-4 lg:p-5 rounded-lg text-lg lg:text-xl text-gray-50/90 bg-neutral-50/10">
+        <span class="text-gray-50/90">Pressure</span>
+        <div class="flex flex-row justify-around px-5">
+          <img src="../../../../assets/svg/barometer.svg" alt="" class="w-2/6">
+          <div class="flex flex-row space-x-2">
+            <span class="text-3xl lg:text-4xl font-semibold mt-8">{{weatherForecast.current.pressure | number:'1.0-0'}} <small>hPA</small></span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+</div>

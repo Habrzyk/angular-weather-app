@@ -1,0 +1,5 @@
+<h1 class="text-2xl lg:text-3xl font-black text-center md:text-left text-gray-50/90 mb-10 lg:mb-0 hidden lg:inline-flex">Today's Forecast</h1>
+<app-today-forecast [currentWeather]="currentWeather" [imageURL]="imageURL" [location]="location" [weather]="weather"></app-today-forecast>
+<app-day-forecast [dayForecast]="dayForecast"></app-day-forecast>
+<app-week-forecast [weekForecast]="weekForecast"></app-week-forecast>
+<app-detailed-forecast [weatherForecast]="weatherForecast"></app-detailed-forecast>
