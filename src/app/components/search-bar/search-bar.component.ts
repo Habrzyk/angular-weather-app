@@ -1,8 +1,10 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { UserInterfaceService } from 'src/app/services/user-interface/user-interface.service';
 import { WeatherForecastWithLocationService } from 'src/app/services/weather-forecast-with-location/weather-forecast-with-location.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-search-bar',
   templateUrl: './search-bar.component.html',
@@ -26,9 +28,17 @@ export class SearchBarComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.weatherForecastWithLocationService.isNewWeatherForecastWithLocationObs.subscribe((isNew) => (this.isNewWeatherForecastWithLocation = isNew));
-    this.weatherForecastWithLocationService.weatherForecastWithLocationListObs.subscribe((list) => (this.isWeatherForecastWithLocationList = list && list.length ? true : false));
-    this.userInterfaceService.errorMessageObs.subscribe((message) => (this.errorMessage = message));
+    this.weatherForecastWithLocationService.isNewWeatherForecastWithLocationObs
+      .pipe(untilDestroyed(this))
+      .subscribe((isNew: boolean) => (this.isNewWeatherForecastWithLocation = isNew));
+
+    this.weatherForecastWithLocationService.weatherForecastWithLocationListObs
+      .pipe(untilDestroyed(this))
+      .subscribe((list: []) => (this.isWeatherForecastWithLocationList = list && list.length ? true : false));
+
+    this.userInterfaceService.errorMessageObs
+      .pipe(untilDestroyed(this))
+      .subscribe((message: string) => (this.errorMessage = message));
   }
 
   onSubmit() {

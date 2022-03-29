@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { UserInterfaceService } from './services/user-interface/user-interface.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -16,8 +18,10 @@ export class AppComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-    this.userInterfaceService.colorThemeObs.subscribe({
-      next: (newColorTheme) => this.colorTheme = newColorTheme
-    });
+    this.userInterfaceService.colorThemeObs
+      .pipe(untilDestroyed(this))
+      .subscribe({
+        next: (newColorTheme: string) => this.colorTheme = newColorTheme
+      });
   }
 }

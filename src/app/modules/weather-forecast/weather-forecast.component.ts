@@ -5,7 +5,9 @@ import { WeatherForecast } from 'src/app/models/weather-forecast.model';
 import { Location } from 'src/app/models/location.model';
 import { Router } from '@angular/router';
 import { WeatherForecastWithLocationService } from 'src/app/services/weather-forecast-with-location/weather-forecast-with-location.service';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-weather-forecast',
   templateUrl: './weather-forecast.component.html',
@@ -24,21 +26,27 @@ export class WeatherForecastComponent {
     ) { }
 
   getWeatherUpdate(location: Location) {
-    this.weatherApiService.getWeatherByPosition(location.position).subscribe((response) => {
-      this.weatherForecast = <WeatherForecast>response;
-      this.location = <Location>location;
-      if (this.weatherForecast && this.location) {
-        this.weatherForecastWithLocationService.addNewWeatherForecastWithLocation(this.weatherForecast, this.location);
-        this.router.navigate(['location-details', this.location.id]);
-      }
-    });
+    this.weatherApiService.getWeatherByPosition(location.position)
+      .pipe(untilDestroyed(this))
+      .subscribe((response) => {
+        this.weatherForecast = <WeatherForecast>response;
+        this.location = <Location>location;
+        if (this.weatherForecast && this.location) {
+          this.weatherForecastWithLocationService.addNewWeatherForecastWithLocation(this.weatherForecast, this.location);
+          this.router.navigate(['location-details', this.location.id]);
+        }
+      });
   }
 
   searchLocation(locationName: string) {
-    this.geocodeApiService.getLocation(locationName).subscribe((response) => {
-      this.location = <Location>response.items[0];
-      this.getWeatherUpdate(this.location);
-    });
+    this.geocodeApiService.getLocation(locationName)
+      .pipe(untilDestroyed(this))
+      .subscribe((response) => {
+        this.location = <Location>response.items[0];
+        if (this.location) {
+          this.getWeatherUpdate(this.location);
+        }
+      });
   }
 
 }

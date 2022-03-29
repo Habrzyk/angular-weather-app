@@ -1,10 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { CurrentWeather, DailyWeather, HourlyWeather, Weather } from 'src/app/models/weather-forecast.model';
 import { Location } from 'src/app/models/location.model';
 import { WeatherForecastWithLocationService } from 'src/app/services/weather-forecast-with-location/weather-forecast-with-location.service';
 import { WeatherForecast } from 'src/app/models/weather-forecast.model';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-location-details',
   templateUrl: './location-details.component.html',
@@ -25,9 +27,11 @@ export class LocationDetailsComponent {
     private route: ActivatedRoute,
     private weatherForecastWithLocationService: WeatherForecastWithLocationService
   ) {
-    route.params.subscribe(val => {
-      this.getLocationDetails();
-    });
+    route.params
+      .pipe(untilDestroyed(this))
+      .subscribe(val => {
+        this.getLocationDetails();
+      });
   }
 
   getLocationDetails() {

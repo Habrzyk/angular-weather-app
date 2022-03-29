@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { WeatherForecastWithLocationService } from 'src/app/services/weather-forecast-with-location/weather-forecast-with-location.service';
 import { WeatherForecastWithLocation } from 'src/app/models/weather-forecast-with-location.model';
+import { UntilDestroy, untilDestroyed } from '@ngneat/until-destroy';
 
+@UntilDestroy()
 @Component({
   selector: 'app-location-list',
   templateUrl: './location-list.component.html',
@@ -14,7 +16,9 @@ export class LocationListComponent implements OnInit {
   constructor(private weatherForecastWithLocationService: WeatherForecastWithLocationService) { }
 
   ngOnInit(): void {
-    this.weatherForecastWithLocationService.weatherForecastWithLocationListObs.subscribe((list) => (this.weatherForecastWithLocationList = list));
+    this.weatherForecastWithLocationService.weatherForecastWithLocationListObs
+      .pipe(untilDestroyed(this))
+      .subscribe((list: []) => (this.weatherForecastWithLocationList = list));
   }
 
   onDelete(id: string) {
