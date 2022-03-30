@@ -36,7 +36,7 @@ export class LocationDetailsComponent {
 
   getLocationDetails() {
     this.id = this.route.snapshot.paramMap.get('id');
-    let weatherForecastWithLocation = this.weatherForecastWithLocationService.getWeatherForecastWithLocation(this.id);
+    let weatherForecastWithLocation = this.weatherForecastWithLocationService.findWeatherForecastWithLocation(this.id);
     this.weatherForecast = weatherForecastWithLocation.weatherForecast;
     this.location = weatherForecastWithLocation.location;
     this.currentWeather = this.weatherForecast.current;

@@ -15,18 +15,18 @@ export class UserInterfaceService {
   errorMessageObs = new BehaviorSubject<string>('');
 
   constructor(private localStorageService: LocalStorageService) { 
-    let colorThemeFromStorage = this.localStorageService.getThemeColor();
+    let colorThemeFromStorage = this.localStorageService.getLocalStorage<string>('THEME_COLOR_KEY');
     this.colorThemeObs = new BehaviorSubject<string>(colorThemeFromStorage ? colorThemeFromStorage : this.defaultColorsClass);
   }
 
   changeThemeColor() {
     let newClassOfThemeColor = this.getNewClassOfThemeColor();
-    this.localStorageService.saveThemeColor(newClassOfThemeColor);
+    this.localStorageService.setLocalStorage('THEME_COLOR_KEY', newClassOfThemeColor);
     this.colorThemeObs.next(newClassOfThemeColor);
   }
 
   getNewClassOfThemeColor() {
-    let currentClassOfThemeColor = this.localStorageService.getThemeColor();
+    let currentClassOfThemeColor = this.localStorageService.getLocalStorage<string>('THEME_COLOR_KEY');
     if (!currentClassOfThemeColor) {
       currentClassOfThemeColor = this.defaultColorsClass;
     }
